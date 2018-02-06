@@ -1,0 +1,60 @@
+apply plugin: 'com.android.application'
+
+android {
+    useLibrary 'org.apache.http.legacy'
+    flavorDimensions "default"
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.example.shatla.gradle_proj"
+        minSdkVersion 16
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath true
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            multiDexEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    productFlavors {
+        free {
+            applicationId "com.example.shatla.gradle_proj.free"
+
+        }
+        paid {
+            applicationId "com.example.shatla.gradle_proj.paid"
+
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    //implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    //compile 'org.apache.httpcomponents:httpclient:4.5'
+    implementation 'com.google.api-client:google-api-client:1.23.0'
+    implementation 'com.google.http-client:google-http-client-android:1.23.0'
+
+
+    //compile 'com.google.android.gms:play-services-ads:11.8.0'
+    compile project(path: ':libJokes')
+    compile project(path: ':androidlibrary')
+    compile project(path: ':backend')
+
+    implementation "com.github.hotchemi:permissionsdispatcher:3.0.1"
+    annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:3.0.1"
+}
